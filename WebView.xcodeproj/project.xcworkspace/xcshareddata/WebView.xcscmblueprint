@@ -1,0 +1,24 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "8839251b-9e7e-ec4e-95a8-28413d90814d++5449" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8839251b-9e7e-ec4e-95a8-28413d90814d++5449" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5259E1E3-8061-4EB6-ACEB-4C92C9B3888B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8839251b-9e7e-ec4e-95a8-28413d90814d++5449" : "xbtest\/WebView\/WebView\/GeneralSDK\/SDKReference\/UtilitySDK_Relevant\/Security\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "WebView",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "WebView\/WebView.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/124.207.23.111:8099\/svn\/unimob",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8839251b-9e7e-ec4e-95a8-28413d90814d++5449"
+    }
+  ]
+}
