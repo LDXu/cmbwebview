@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface CMBWebViewVC : UIViewController
+//暴露webview
+@property (nonatomic,strong) UIWebView* CMBWebView;
+@property (nonatomic, strong) NSURL *webUrl;
 - (instancetype)initWithURL:(NSURL *)url;
 - (instancetype)initWithURLString:(NSString *)urlString;
-@property (nonatomic, strong) NSURL *webUrl;
-@property (nonatomic, copy) NSString *webStrUrl;
+//html文件名
+- (instancetype)initWithFileName:(NSString *)htmlName;
 @end
 

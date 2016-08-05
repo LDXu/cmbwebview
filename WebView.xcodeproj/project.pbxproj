@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E3148931D54591C0011F87D /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3148921D54591C0011F87D /* TestViewController.m */; };
+		7E314CBA1D5475370011F87D /* cloudstore__spa in Resources */ = {isa = PBXBuildFile; fileRef = 7E314CB91D5475370011F87D /* cloudstore__spa */; };
 		7EB5949D1D533CAB00C7AFF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5949C1D533CAB00C7AFF9 /* main.m */; };
 		7EB594A01D533CAB00C7AFF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5949F1D533CAB00C7AFF9 /* AppDelegate.m */; };
-		7EB594A31D533CAB00C7AFF9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB594A21D533CAB00C7AFF9 /* ViewController.m */; };
+		7EB594A31D533CAB00C7AFF9 /* CMBWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB594A21D533CAB00C7AFF9 /* CMBWebViewVC.m */; };
 		7EB594A61D533CAB00C7AFF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB594A41D533CAB00C7AFF9 /* Main.storyboard */; };
 		7EB594A81D533CAB00C7AFF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EB594A71D533CAB00C7AFF9 /* Assets.xcassets */; };
 		7EB594AB1D533CAB00C7AFF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB594A91D533CAB00C7AFF9 /* LaunchScreen.storyboard */; };
@@ -19,12 +21,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E3148911D54591C0011F87D /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		7E3148921D54591C0011F87D /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		7E314CB91D5475370011F87D /* cloudstore__spa */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cloudstore__spa; sourceTree = "<group>"; };
 		7EB594981D533CAA00C7AFF9 /* WebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB5949C1D533CAB00C7AFF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7EB5949E1D533CAB00C7AFF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7EB5949F1D533CAB00C7AFF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7EB594A11D533CAB00C7AFF9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7EB594A21D533CAB00C7AFF9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7EB594A11D533CAB00C7AFF9 /* CMBWebViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMBWebViewVC.h; sourceTree = "<group>"; };
+		7EB594A21D533CAB00C7AFF9 /* CMBWebViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMBWebViewVC.m; sourceTree = "<group>"; };
 		7EB594A51D533CAB00C7AFF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EB594A71D533CAB00C7AFF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7EB594AA1D533CAB00C7AFF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,11 +74,14 @@
 		7EB5949A1D533CAB00C7AFF9 /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				7E314CB91D5475370011F87D /* cloudstore__spa */,
 				7EB5955B1D537AEF00C7AFF9 /* ZTQuickControl */,
 				7EB5949E1D533CAB00C7AFF9 /* AppDelegate.h */,
 				7EB5949F1D533CAB00C7AFF9 /* AppDelegate.m */,
-				7EB594A11D533CAB00C7AFF9 /* ViewController.h */,
-				7EB594A21D533CAB00C7AFF9 /* ViewController.m */,
+				7EB594A11D533CAB00C7AFF9 /* CMBWebViewVC.h */,
+				7EB594A21D533CAB00C7AFF9 /* CMBWebViewVC.m */,
+				7E3148911D54591C0011F87D /* TestViewController.h */,
+				7E3148921D54591C0011F87D /* TestViewController.m */,
 				7EB594A41D533CAB00C7AFF9 /* Main.storyboard */,
 				7EB594A71D533CAB00C7AFF9 /* Assets.xcassets */,
 				7EB594A91D533CAB00C7AFF9 /* LaunchScreen.storyboard */,
@@ -164,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EB594AB1D533CAB00C7AFF9 /* LaunchScreen.storyboard in Resources */,
+				7E314CBA1D5475370011F87D /* cloudstore__spa in Resources */,
 				7EB594A81D533CAB00C7AFF9 /* Assets.xcassets in Resources */,
 				7EB594A61D533CAB00C7AFF9 /* Main.storyboard in Resources */,
 			);
@@ -176,8 +185,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EB594A31D533CAB00C7AFF9 /* ViewController.m in Sources */,
+				7EB594A31D533CAB00C7AFF9 /* CMBWebViewVC.m in Sources */,
 				7EB594A01D533CAB00C7AFF9 /* AppDelegate.m in Sources */,
+				7E3148931D54591C0011F87D /* TestViewController.m in Sources */,
 				7EB595631D537AEF00C7AFF9 /* UIView+ZTExtension.m in Sources */,
 				7EB595651D537AEF00C7AFF9 /* ZTButton.m in Sources */,
 				7EB5949D1D533CAB00C7AFF9 /* main.m in Sources */,
@@ -332,6 +342,7 @@
 				7EB594B11D533CAB00C7AFF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
