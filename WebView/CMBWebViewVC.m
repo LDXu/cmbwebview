@@ -74,7 +74,7 @@
 
 - (NSURL*)CMBWebview_html_forURLForResource:(NSString*)FileStr{
 
-    return [self CMBWebviewforURLForResource:@"html/index" FileExtension:@"html"];
+    return [self CMBWebviewforURLForResource:FileStr FileExtension:@"html"];
 
 }
 
