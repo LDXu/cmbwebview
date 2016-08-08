@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7E3148931D54591C0011F87D /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3148921D54591C0011F87D /* TestViewController.m */; };
 		7E314CBA1D5475370011F87D /* cloudstore__spa in Resources */ = {isa = PBXBuildFile; fileRef = 7E314CB91D5475370011F87D /* cloudstore__spa */; };
+		7E9D86AD1D5879F8003F712F /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D86AA1D5879F8003F712F /* NJKWebViewProgress.m */; };
+		7E9D86AE1D5879F8003F712F /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D86AC1D5879F8003F712F /* NJKWebViewProgressView.m */; };
 		7EB5949D1D533CAB00C7AFF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5949C1D533CAB00C7AFF9 /* main.m */; };
 		7EB594A01D533CAB00C7AFF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5949F1D533CAB00C7AFF9 /* AppDelegate.m */; };
 		7EB594A31D533CAB00C7AFF9 /* CMBWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB594A21D533CAB00C7AFF9 /* CMBWebViewVC.m */; };
@@ -24,6 +26,10 @@
 		7E3148911D54591C0011F87D /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		7E3148921D54591C0011F87D /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		7E314CB91D5475370011F87D /* cloudstore__spa */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cloudstore__spa; sourceTree = "<group>"; };
+		7E9D86A91D5879F8003F712F /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
+		7E9D86AA1D5879F8003F712F /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		7E9D86AB1D5879F8003F712F /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
+		7E9D86AC1D5879F8003F712F /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		7EB594981D533CAA00C7AFF9 /* WebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB5949C1D533CAB00C7AFF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7EB5949E1D533CAB00C7AFF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -55,6 +61,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E9D86A81D5879F8003F712F /* NJKWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				7E9D86A91D5879F8003F712F /* NJKWebViewProgress.h */,
+				7E9D86AA1D5879F8003F712F /* NJKWebViewProgress.m */,
+				7E9D86AB1D5879F8003F712F /* NJKWebViewProgressView.h */,
+				7E9D86AC1D5879F8003F712F /* NJKWebViewProgressView.m */,
+			);
+			path = NJKWebViewProgress;
+			sourceTree = "<group>";
+		};
 		7EB5948F1D533CAA00C7AFF9 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +91,7 @@
 		7EB5949A1D533CAB00C7AFF9 /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				7E9D86A81D5879F8003F712F /* NJKWebViewProgress */,
 				7E314CB91D5475370011F87D /* cloudstore__spa */,
 				7EB5955B1D537AEF00C7AFF9 /* ZTQuickControl */,
 				7EB5949E1D533CAB00C7AFF9 /* AppDelegate.h */,
@@ -185,12 +203,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E9D86AD1D5879F8003F712F /* NJKWebViewProgress.m in Sources */,
 				7EB594A31D533CAB00C7AFF9 /* CMBWebViewVC.m in Sources */,
 				7EB594A01D533CAB00C7AFF9 /* AppDelegate.m in Sources */,
 				7E3148931D54591C0011F87D /* TestViewController.m in Sources */,
 				7EB595631D537AEF00C7AFF9 /* UIView+ZTExtension.m in Sources */,
 				7EB595651D537AEF00C7AFF9 /* ZTButton.m in Sources */,
 				7EB5949D1D533CAB00C7AFF9 /* main.m in Sources */,
+				7E9D86AE1D5879F8003F712F /* NJKWebViewProgressView.m in Sources */,
 				7EB595641D537AEF00C7AFF9 /* UIView+ZTQuickControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

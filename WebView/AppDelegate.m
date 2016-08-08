@@ -20,7 +20,8 @@
     
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURLString:@"http://wap.baidu.com"]];
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURLString:@"http://wap.baidu.com"]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURL:[NSURL URLWithString:@"http://wap.baidu.com"]]];
 //    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithFileName:@"entry_type_store"]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

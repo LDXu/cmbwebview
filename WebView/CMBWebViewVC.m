@@ -7,11 +7,15 @@
 //
 #import "ZTQuickControl.h"
 #import "CMBWebViewVC.h"
+#import "NJKWebViewProgress.h"
+#import "NJKWebViewProgressView.h"
 #import "TestViewController.h"
-@interface CMBWebViewVC ()<UIWebViewDelegate>
+@interface CMBWebViewVC ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
 {
     BOOL hasError;
     BOOL isFile;
+    NJKWebViewProgressView *_progressView;
+    NJKWebViewProgress *_progressProxy;
 }
 //原项目不改动，隐藏导航栏。放置一个view
 @property (nonatomic,strong) UIView* NavView;
@@ -70,6 +74,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [_progressView removeFromSuperview];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
@@ -83,7 +88,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    [self createProgressView];
     [self createNavRight_First];
     [self createNavLeft_First];
     if (!isFile) {
@@ -96,6 +101,20 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void)createProgressView{
+
+    _progressProxy = [[NJKWebViewProgress alloc] init];
+    self.CMBWebView.delegate = _progressProxy;
+    _progressProxy.webViewProxyDelegate = self;
+    _progressProxy.progressDelegate = self;
+    CGFloat progressBarHeight = 2.f;
+    CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
+    CGRect barFrame = CGRectMake(0, self.NavView.frame.origin.y+self.NavView.frame.size.height - progressBarHeight, kScreenWidth, progressBarHeight);
+    _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
+    _progressView.progressBarView.backgroundColor = [UIColor colorWithRed:1.000 green:0.500 blue:0.000 alpha:0.800];
+    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.NavView addSubview:_progressView];
+}
 
 - (void)createNavRight_First{
 
@@ -168,6 +187,13 @@
 
 }
 
+#pragma mark - NJKWebViewProgressDelegate
+-(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
+{
+    [_progressView setProgress:progress animated:YES];
+//    [self getWebViewTitle];
+}
+
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -187,12 +213,16 @@
         return NO;
     }
     
-    if ([url  containsString:@"baidu"] || [url  containsString:@"exchange_list.html"]  || [url  containsString:@"detail.html"] || [url  containsString:@"list.html"]) {
-        TestViewController * vc = [[TestViewController  alloc] init];
-        vc.webUrl = [NSURL URLWithString:@"http://m.taobao.com"];
-        [self.navigationController pushViewController:vc animated:YES];
-        return NO;
-    }
+//    if ([url  containsString:@"baidu"] || [url  containsString:@"exchange_list.html"]  || [url  containsString:@"detail.html"] || [url  containsString:@"list.html"]) {
+//        
+//        [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"m.taobao.com"]]];
+//        return NO;
+//        
+//        TestViewController * vc = [[TestViewController  alloc] init];
+//        vc.webUrl = [NSURL URLWithString:@"http://m.taobao.com"];
+//        [self.navigationController pushViewController:vc animated:YES];
+//        return NO;
+//    }
     
     
     NSLog(@"init url: %@\n current url: %@", self.webUrl.absoluteString, request.URL.absoluteString);
