@@ -12,9 +12,13 @@
 //暴露webview
 @property (nonatomic,strong) UIWebView* CMBWebView;
 @property (nonatomic, strong) NSURL *webUrl;
+//nsurl      NSURL格式
 - (instancetype)initWithURL:(NSURL *)url;
+//url string 网址字符串
 - (instancetype)initWithURLString:(NSString *)urlString;
-//html文件名
+//html文件名,不需要后缀       index
 - (instancetype)initWithFileName:(NSString *)htmlName;
+//html文件路径,不需要后缀      html/index
+- (instancetype)initWithFileStr:(NSString *)FileStr;
 @end
 

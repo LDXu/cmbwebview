@@ -48,18 +48,40 @@
     return [self initWithURL:[NSURL URLWithString:urlString]];
 }
 
+- (instancetype)initWithFileStr:(NSString *)FileStr{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        if (FileStr.length) {
+            
+            _webUrl = [self CMBWebview_html_forURLForResource:FileStr];
+            
+        }
+    }
+    return self;
+}
+
 - (instancetype)initWithFileName:(NSString *)htmlName{
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         if (htmlName.length) {
             isFile = YES;
             _htmlPath = [NSString stringWithFormat:@"%@/%@.html",self.basePath,htmlName];
-            NSString *htmlString = [NSString stringWithContentsOfFile:_htmlPath
-                                                            encoding:NSUTF8StringEncoding error:nil];
-            [self.CMBWebView loadHTMLString:htmlString baseURL:self.baseURL];
+            
         }
     }
     return self;
+}
+
+- (NSURL*)CMBWebview_html_forURLForResource:(NSString*)FileStr{
+
+    return [self CMBWebviewforURLForResource:@"html/index" FileExtension:@"html"];
+
+}
+
+- (NSURL*)CMBWebviewforURLForResource:(NSString*)FileStr FileExtension:(NSString*)FileExtension{
+
+    return [[NSBundle mainBundle] URLForResource:FileStr withExtension:FileExtension];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -85,6 +107,7 @@
     [self.NavView addSubview:self.TitleLabel];
 }
 
+#pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -94,10 +117,12 @@
     if (!isFile) {
         [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
     }else{
-        [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
+        NSString *htmlString = [NSString stringWithContentsOfFile:_htmlPath
+                                                         encoding:NSUTF8StringEncoding error:nil];
+        [self.CMBWebView loadHTMLString:htmlString baseURL:self.baseURL];
     }
     
-
+//    [self setCookie];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -108,7 +133,7 @@
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
     CGFloat progressBarHeight = 2.f;
-    CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
+//    CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
     CGRect barFrame = CGRectMake(0, self.NavView.frame.origin.y+self.NavView.frame.size.height - progressBarHeight, kScreenWidth, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.progressBarView.backgroundColor = [UIColor colorWithRed:1.000 green:0.500 blue:0.000 alpha:0.800];
@@ -144,14 +169,20 @@
     
     if (hasError) {
         if (isFile) {
+            
             NSString *htmlString = [NSString stringWithContentsOfFile:_htmlPath
                                                              encoding:NSUTF8StringEncoding error:nil];
             [self.CMBWebView loadHTMLString:htmlString baseURL:_baseURL];
+            
         }else{
+            
             [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
+            
         }
     }else{
-        [self.CMBWebView reload];
+        
+            [self.CMBWebView reload];
+        
     }
 
 }
@@ -224,7 +255,7 @@
 //        return NO;
 //    }
     
-    
+//    [self showCookie];
     NSLog(@"init url: %@\n current url: %@", self.webUrl.absoluteString, request.URL.absoluteString);
     if ([webView canGoBack]) {
         [self createNavLeft_Second];
@@ -300,10 +331,11 @@
     return _CMBWebView;
 }
 
+//文件路径
 - (NSString*)basePath{
     if (!_basePath) {
         NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
-        _basePath = [NSString stringWithFormat:@"%@/cloudstore__spa/html/jhb",mainBundlePath];
+        _basePath = [NSString stringWithFormat:@"%@/html",mainBundlePath];
     }
     return _basePath;
 }
@@ -377,6 +409,7 @@
 - (void)testCookie{
     
     [self setCookie];
+    //这个php网址已经失效。
     NSString *urlAddress = @"http://blog.toright.com/cookie.php";
     NSURL *myurl = [NSURL URLWithString:urlAddress];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:myurl];
