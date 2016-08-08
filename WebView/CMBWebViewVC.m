@@ -5,6 +5,7 @@
 //  Created by 周赞 on 16/8/4.
 //  Copyright © 2016年 xubin. All rights reserved.
 //
+#import "MJRefresh.h"
 #import "ZTQuickControl.h"
 #import "CMBWebViewVC.h"
 #import "NJKWebViewProgress.h"
@@ -121,6 +122,12 @@
                                                          encoding:NSUTF8StringEncoding error:nil];
         [self.CMBWebView loadHTMLString:htmlString baseURL:self.baseURL];
     }
+    
+    // 添加下拉刷新控件
+    self.CMBWebView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        [self.CMBWebView reload];
+    }];
     
 //    [self setCookie];
     // Do any additional setup after loading the view, typically from a nib.
@@ -269,6 +276,9 @@
         [self.right_Second removeFromSuperview];
         self.right_Second = nil;
     }
+//    if (navigationType == UIWebViewNavigationTypeLinkClicked){
+//        self.webUrl = request.URL;
+//    }
     hasError = NO;
     return YES;
 }
@@ -279,6 +289,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self.CMBWebView.scrollView.mj_header endRefreshing];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self getWebViewTitle];
     
@@ -287,6 +298,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"加载失败%@",error);
+    [self.CMBWebView.scrollView.mj_header endRefreshing];
     hasError = YES;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
@@ -438,6 +450,8 @@
 
 - (void)dealloc {
     self.CMBWebView.delegate = nil;
+    _progressProxy.webViewProxyDelegate = nil;
+    _progressProxy.progressDelegate = nil;
     [self.CMBWebView stopLoading];
 }
 
