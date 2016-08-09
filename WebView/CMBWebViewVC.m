@@ -5,6 +5,7 @@
 //  Created by 周赞 on 16/8/4.
 //  Copyright © 2016年 xubin. All rights reserved.
 //
+#import "NSString+HZExtend.h"
 #import "MJRefresh.h"
 #import "ZTQuickControl.h"
 #import "CMBWebViewVC.h"
@@ -115,6 +116,7 @@
     [self createProgressView];
     [self createNavRight_First];
     [self createNavLeft_First];
+    [self setCookie];
     if (!isFile) {
         [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
     }else{
@@ -129,7 +131,6 @@
         [self.CMBWebView reload];
     }];
     
-//    [self setCookie];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -262,7 +263,7 @@
 //        return NO;
 //    }
     
-//    [self showCookie];
+    [self showCookie];
     NSLog(@"init url: %@\n current url: %@", self.webUrl.absoluteString, request.URL.absoluteString);
     if ([webView canGoBack]) {
         [self createNavLeft_Second];
@@ -347,7 +348,7 @@
 - (NSString*)basePath{
     if (!_basePath) {
         NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];
-        _basePath = [NSString stringWithFormat:@"%@/html",mainBundlePath];
+        _basePath = [NSString stringWithFormat:@"%@/test",mainBundlePath];
     }
     return _basePath;
 }
@@ -407,11 +408,13 @@
 - (void)setCookie{
 
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
-    [cookieProperties setObject:@"CMBNSHTTPCookieName" forKey:NSHTTPCookieName];
-    [cookieProperties setObject:@"CMBNSHTTPCookieValue" forKey:NSHTTPCookieValue];
-    [cookieProperties setObject:@"CMBNSHTTPCookieDomain" forKey:NSHTTPCookieDomain];
+//    [cookieProperties setObject:@"自己设定cookie" forKey:NSHTTPCookieName];
+    [cookieProperties setObject:@"abc" forKey:NSHTTPCookieName];
+    //使用这个理论
+    [cookieProperties setObject:@"abcd" forKey:NSHTTPCookieValue];
+    [cookieProperties setObject:@"" forKey:NSHTTPCookieDomain];
     [cookieProperties setObject:@"CMBNSHTTPCookieOriginURL" forKey:NSHTTPCookieOriginURL];
-    [cookieProperties setObject:@"CMBNSHTTPCookiePath" forKey:NSHTTPCookiePath];
+    [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
     [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieVersion];
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
@@ -433,7 +436,22 @@
 
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-        NSLog(@"%@", cookie);
+        
+        NSLog(@"cookie%@\n%@",cookie.name,cookie.domain);
+        
+        if ([cookie.name isEqualToString:@"abc"]) {
+            
+            NSLog(@"cookie%@\n%@",cookie.value,cookie.domain);
+            return;
+//            if ([str containsString:@"此处设置cookie"]) {
+//                NSLog(@"1233445566");
+//            }
+        }
+//        if ([str containsString:@"此处设置cookie"]) {
+//            NSLog(@"1233445566");
+//        }
+//            NSLog(@"%@",[[NSHTTPCookie requestHeaderFieldsWithCookies:cookie] objectForKey:@"NSHTTPCookieValue"] );
+//        }
     }
 
 }

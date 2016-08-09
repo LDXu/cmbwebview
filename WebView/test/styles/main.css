@@ -1,0 +1,48 @@
+
+html {
+  font-size: 20px;
+}
+.container {
+  padding: 2rem 0.5rem 0;
+  font-size: 0.7rem;
+}
+div {
+  padding: 0.5rem 0;
+}
+input {
+  height: 1.2rem;
+  line-height: 1.2rem;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  width: 40%;
+  padding: 0.2rem;
+}
+button {
+  padding: 0.3rem 0.5rem;
+  background-color: #eee;
+  border-radius: 0.4rem;
+  border: 1px solid #ddd;
+}
+textarea {
+  width: 60%;
+  height: 4rem;
+  padding: 0.3rem;
+}
+.result {
+  display: none;
+  color: red;
+}
+h5 {
+  line-height: 1.2rem;
+}
+.testbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  margin: 0 auto;
+  background-color: blue;
+}
+/*# sourceMappingURL=app/styles/main.css.map */
