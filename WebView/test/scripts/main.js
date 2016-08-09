@@ -1,12 +1,14 @@
-
 require.config({
         baseUrl: 'scripts/'
     }
 )
 
-
+cookieValue = $.cookie("test");
+alert(cookieValue);
 var dt = new Date();
 dt.setSeconds(dt.getSeconds() + 60);
+var allcookies = document.referrer;
+alert(allcookies);
 document.cookie = "";
 var cookiesEnabled = document.cookie.indexOf("cookietest=") != -1;
 if(!cookiesEnabled) {
@@ -49,9 +51,12 @@ require(['zepto'], function ($) {
 //        return document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"))==null ? null : decodeURIComponent(RegExp.$2);
 //    };
     exports.getCookie =function(name) {
+        
         var name = escape(name);
         //读cookie属性，这将返回文档的所有cookie
-        var allcookies = document.cookie;
+//        var allcookies = document.cookie;
+//        alert(1);
+//        alert(allcookies);
         //查找名为name的cookie的开始位置
         name += "=";
         var pos = allcookies.indexOf(name);

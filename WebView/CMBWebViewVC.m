@@ -117,6 +117,7 @@
     [self createNavRight_First];
     [self createNavLeft_First];
     [self setCookie];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage]setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     if (!isFile) {
         [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
     }else{
@@ -124,7 +125,8 @@
                                                          encoding:NSUTF8StringEncoding error:nil];
         [self.CMBWebView loadHTMLString:htmlString baseURL:self.baseURL];
     }
-    
+    //如果删除的时候数据紊乱,可延迟0.5s刷新一下
+    [self performSelector:@selector(reloadWebview) withObject:nil afterDelay:10];
     // 添加下拉刷新控件
     self.CMBWebView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
@@ -245,6 +247,7 @@
     // url的前缀是不是 xdios://
     if ([url hasPrefix:scheme]) {
         NSLog(@"%@",url);
+        
         // 得到要跳的方法名  这边需要结合urlmanager分支／
         //        NSString *path = [url substringFromIndex:scheme.length];
         //跳转方法
@@ -263,7 +266,7 @@
 //        return NO;
 //    }
     
-    [self showCookie];
+    
     NSLog(@"init url: %@\n current url: %@", self.webUrl.absoluteString, request.URL.absoluteString);
     if ([webView canGoBack]) {
         [self createNavLeft_Second];
@@ -290,6 +293,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self showCookie];
     [self.CMBWebView.scrollView.mj_header endRefreshing];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self getWebViewTitle];
@@ -406,18 +410,41 @@
 
 #pragma mark - cookie设置（也可以提前设定好，http请求就可以。仅限webview。wkwebview比较坑）
 - (void)setCookie{
-
+    
+    NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:3600*24*30*12];//当前点后，保存一年左右
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
-//    [cookieProperties setObject:@"自己设定cookie" forKey:NSHTTPCookieName];
     [cookieProperties setObject:@"abc" forKey:NSHTTPCookieName];
-    //使用这个理论
-    [cookieProperties setObject:@"abcd" forKey:NSHTTPCookieValue];
+    [cookieProperties setObject:@"test cookie" forKey:NSHTTPCookieValue];
     [cookieProperties setObject:@"" forKey:NSHTTPCookieDomain];
     [cookieProperties setObject:@"CMBNSHTTPCookieOriginURL" forKey:NSHTTPCookieOriginURL];
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
+    [cookieProperties setObject:expiresDate forKey:NSHTTPCookieExpires];
     [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieVersion];
+    [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieSecure];
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+
+}
+
+- ( void )reloadWebview{
+    NSLog(@"reloadWebview");
+    NSArray                 *cookies;
+    NSDictionary            *cookieHeaders;
+    NSMutableURLRequest     *request;
+    
+    cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+               cookiesForURL: self.webUrl ];
+    if ( !cookies ) {
+        /* kick off new NSURLConnection to retrieve new auth cookie */
+        return;
+    }
+    
+    cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
+    request = [[ NSMutableURLRequest alloc ] initWithURL: self.webUrl ];
+    [ request setValue: [ cookieHeaders objectForKey: @"Cookie" ]
+    forHTTPHeaderField: @"Cookie" ];
+    
+    [ self.CMBWebView loadRequest: request ];
 
 }
 
@@ -432,20 +459,52 @@
 
 }
 
+- (void)saveCookie:(NSString*)cookName{
+
+    NSArray *nCookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSHTTPCookie *cookie;
+    for (id c in nCookies)
+    {
+        if ([c isKindOfClass:[NSHTTPCookie class]])
+        {
+            cookie=(NSHTTPCookie *)c;
+            if ([cookie.name isEqualToString:cookName]) {
+                NSNumber *sessionOnly = [NSNumber numberWithBool:cookie.sessionOnly];
+                NSNumber *isSecure = [NSNumber numberWithBool:cookie.isSecure];
+                NSArray *cookies = [NSArray arrayWithObjects:cookie.name, cookie.value, sessionOnly, cookie.domain, cookie.path, isSecure, nil];
+                [[NSUserDefaults standardUserDefaults] setObject:cookies forKey:@"cookies"];
+                break;
+            }
+        }
+    }
+
+}
+
+- (void)setCookieFormSave{
+    //正常判断方法写在外面调用setCookieFormSave
+    if ([[[[NSUserDefaults standardUserDefaults]dictionaryRepresentation]allKeys]containsObject:@"cookies"]) {
+        NSArray *cookies =[[NSUserDefaults standardUserDefaults]  objectForKey:@"cookies"];
+        NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
+        [cookieProperties setObject:[cookies objectAtIndex:0] forKey:NSHTTPCookieName];
+        [cookieProperties setObject:[cookies objectAtIndex:1] forKey:NSHTTPCookieValue];
+        [cookieProperties setObject:[cookies objectAtIndex:3] forKey:NSHTTPCookieDomain];
+        [cookieProperties setObject:[cookies objectAtIndex:4] forKey:NSHTTPCookiePath];
+        NSHTTPCookie *cookieuser = [NSHTTPCookie cookieWithProperties:cookieProperties];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage]  setCookie:cookieuser];
+    }
+}
+
 - (void)showCookie{
 
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* cookiesURL = [cookieJar cookiesForURL:self.webUrl];
+    if (cookiesURL.count) {
+        NSLog(@"cookiesURL%@",cookiesURL);
+    }
     for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-        
-        NSLog(@"cookie%@\n%@",cookie.name,cookie.domain);
-        
         if ([cookie.name isEqualToString:@"abc"]) {
-            
-            NSLog(@"cookie%@\n%@",cookie.value,cookie.domain);
-            return;
-//            if ([str containsString:@"此处设置cookie"]) {
-//                NSLog(@"1233445566");
-//            }
+            NSLog(@"%@\n%@",cookie.value,cookie.domain);
+            break;
         }
 //        if ([str containsString:@"此处设置cookie"]) {
 //            NSLog(@"1233445566");

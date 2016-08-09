@@ -5,7 +5,8 @@
 //  Created by 周赞 on 16/8/4.
 //  Copyright © 2016年 xubin. All rights reserved.
 //
-
+#import "MyURLCache.h"
+#import "MyURLProtocol.h"
 #import "AppDelegate.h"
 #import "CMBWebViewVC.h"
 @interface AppDelegate ()
@@ -16,18 +17,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+//     协议管理了所有的http。接口请求如何过滤？
+//    [NSURLProtocol registerClass:[MyURLProtocol class]];
+//    MyURLCache *URLCache = [[MyURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+//                                                         diskCapacity:20 * 1024 * 1024
+//                                                             diskPath:nil];
+//    [NSURLCache setSharedURLCache:URLCache];
     
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURLString:@"http://wap.baidu.com"]];
+
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURLString:@"http://wap.baidu.com"]];
+    
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURLString:@"http://wap.baidu.com/html/index.html"]];
 
 //    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithURL:[NSURL URLWithString:@"http://wap.baidu.com"]]];
     
 //    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithFileName:@"test"]];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithFileStr:@"test/test"]];
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CMBWebViewVC alloc] initWithFileStr:@"test/test"]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

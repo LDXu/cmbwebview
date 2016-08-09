@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E108B091D59A54A00C7B826 /* MyURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E108B061D59A54A00C7B826 /* MyURLCache.m */; };
+		7E108B0A1D59A54A00C7B826 /* MyURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E108B081D59A54A00C7B826 /* MyURLProtocol.m */; };
 		7E3148931D54591C0011F87D /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3148921D54591C0011F87D /* TestViewController.m */; };
-		7E314CBA1D5475370011F87D /* cloudstore__spa in Resources */ = {isa = PBXBuildFile; fileRef = 7E314CB91D5475370011F87D /* cloudstore__spa */; };
 		7E9D86AD1D5879F8003F712F /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D86AA1D5879F8003F712F /* NJKWebViewProgress.m */; };
 		7E9D86AE1D5879F8003F712F /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9D86AC1D5879F8003F712F /* NJKWebViewProgressView.m */; };
 		7E9D86D61D5882E6003F712F /* html in Resources */ = {isa = PBXBuildFile; fileRef = 7E9D86D51D5882E6003F712F /* html */; };
@@ -46,9 +47,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E108B051D59A54A00C7B826 /* MyURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyURLCache.h; sourceTree = "<group>"; };
+		7E108B061D59A54A00C7B826 /* MyURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyURLCache.m; sourceTree = "<group>"; };
+		7E108B071D59A54A00C7B826 /* MyURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyURLProtocol.h; sourceTree = "<group>"; };
+		7E108B081D59A54A00C7B826 /* MyURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyURLProtocol.m; sourceTree = "<group>"; };
 		7E3148911D54591C0011F87D /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		7E3148921D54591C0011F87D /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		7E314CB91D5475370011F87D /* cloudstore__spa */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cloudstore__spa; sourceTree = "<group>"; };
 		7E9D86A91D5879F8003F712F /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
 		7E9D86AA1D5879F8003F712F /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
 		7E9D86AB1D5879F8003F712F /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
@@ -255,7 +259,6 @@
 				7E9D86DA1D5893A2003F712F /* MJRefresh */,
 				7E9D86D51D5882E6003F712F /* html */,
 				7E9D86A81D5879F8003F712F /* NJKWebViewProgress */,
-				7E314CB91D5475370011F87D /* cloudstore__spa */,
 				7EB5955B1D537AEF00C7AFF9 /* ZTQuickControl */,
 				7EB5949E1D533CAB00C7AFF9 /* AppDelegate.h */,
 				7EB5949F1D533CAB00C7AFF9 /* AppDelegate.m */,
@@ -267,6 +270,10 @@
 				7E9D87371D58DDF4003F712F /* NSObject+HZExtend.m */,
 				7E9D87331D58DD7D003F712F /* NSString+HZExtend.h */,
 				7E9D87341D58DD7D003F712F /* NSString+HZExtend.m */,
+				7E108B051D59A54A00C7B826 /* MyURLCache.h */,
+				7E108B061D59A54A00C7B826 /* MyURLCache.m */,
+				7E108B071D59A54A00C7B826 /* MyURLProtocol.h */,
+				7E108B081D59A54A00C7B826 /* MyURLProtocol.m */,
 				7EB594A41D533CAB00C7AFF9 /* Main.storyboard */,
 				7EB594A71D533CAB00C7AFF9 /* Assets.xcassets */,
 				7EB594A91D533CAB00C7AFF9 /* LaunchScreen.storyboard */,
@@ -358,7 +365,6 @@
 			files = (
 				7EB594AB1D533CAB00C7AFF9 /* LaunchScreen.storyboard in Resources */,
 				7E9D872E1D58BE42003F712F /* test in Resources */,
-				7E314CBA1D5475370011F87D /* cloudstore__spa in Resources */,
 				7E9D87151D5893A2003F712F /* MJRefresh.bundle in Resources */,
 				7EB594A81D533CAB00C7AFF9 /* Assets.xcassets in Resources */,
 				7EB594A61D533CAB00C7AFF9 /* Main.storyboard in Resources */,
@@ -375,6 +381,7 @@
 			files = (
 				7E9D87071D5893A2003F712F /* MJRefreshAutoFooter.m in Sources */,
 				7E9D870E1D5893A2003F712F /* MJRefreshAutoStateFooter.m in Sources */,
+				7E108B091D59A54A00C7B826 /* MyURLCache.m in Sources */,
 				7E9D87101D5893A2003F712F /* MJRefreshBackNormalFooter.m in Sources */,
 				7E9D87121D5893A2003F712F /* MJRefreshGifHeader.m in Sources */,
 				7E9D87171D5893A2003F712F /* UIScrollView+MJExtension.m in Sources */,
@@ -399,6 +406,7 @@
 				7E9D87111D5893A2003F712F /* MJRefreshBackStateFooter.m in Sources */,
 				7E9D87191D5893A2003F712F /* UIView+MJExtension.m in Sources */,
 				7E9D87131D5893A2003F712F /* MJRefreshNormalHeader.m in Sources */,
+				7E108B0A1D59A54A00C7B826 /* MyURLProtocol.m in Sources */,
 				7E9D870D1D5893A2003F712F /* MJRefreshAutoNormalFooter.m in Sources */,
 				7E9D86AE1D5879F8003F712F /* NJKWebViewProgressView.m in Sources */,
 				7EB595641D537AEF00C7AFF9 /* UIView+ZTQuickControl.m in Sources */,
