@@ -6,6 +6,8 @@
  * Copyright (C) 2011 Hakim El Hattab (http://hakim.se, @hakimel)
  */
  /* 代码整理：懒人之家 www.lanrenzhijia.com */
+var allcookies = document.cookie;
+alert(allcookies);
 var Kort = (function(){
 
 	var OFFSET_MARGIN = 2;

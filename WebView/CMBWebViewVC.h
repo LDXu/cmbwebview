@@ -12,6 +12,7 @@
 //暴露webview
 @property (nonatomic,strong) UIWebView* CMBWebView;
 @property (nonatomic, strong) NSURL *webUrl;
+@property (nonatomic, assign) BOOL Local;
 //nsurl      NSURL格式
 - (instancetype)initWithURL:(NSURL *)url;
 //url string 网址字符串

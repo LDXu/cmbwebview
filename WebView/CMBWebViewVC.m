@@ -119,14 +119,15 @@
     [self setCookie];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage]setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     if (!isFile) {
+        
         [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
     }else{
         NSString *htmlString = [NSString stringWithContentsOfFile:_htmlPath
                                                          encoding:NSUTF8StringEncoding error:nil];
         [self.CMBWebView loadHTMLString:htmlString baseURL:self.baseURL];
     }
-    //如果删除的时候数据紊乱,可延迟0.5s刷新一下
-    [self performSelector:@selector(reloadWebview) withObject:nil afterDelay:10];
+//    //可延迟10s刷新一下
+//    [self performSelector:@selector(reloadWebview) withObject:nil afterDelay:10];
     // 添加下拉刷新控件
     self.CMBWebView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
@@ -265,9 +266,27 @@
 //        [self.navigationController pushViewController:vc animated:YES];
 //        return NO;
 //    }
+    if (_Local) {
+        if ([self.webUrl.absoluteString containsString:@"http://192.168.60.104:8020"]) {
+            
+            self.webUrl = [self CMBWebview_html_forURLForResource:@"test/test"];
+//            self.webUrl = [NSURL URLWithString:@"http://192.168.60.104:8020/iOSCookieTest/test.html"];
+            NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:self.webUrl];
+            NSArray * cookies = [[NSHTTPCookieStorage  sharedHTTPCookieStorage] cookies];
+            NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+            [request setHTTPMethod:@"POST"];
+            [request setHTTPShouldHandleCookies:YES];
+            [request setAllHTTPHeaderFields:headers];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.CMBWebView loadRequest:request];
+            });
+            //        NSLog(@"FileWebUrl%@",self.webUrl.absoluteString);
+            //        [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
+            return NO;
+        }
+    }
     
-    
-    NSLog(@"init url: %@\n current url: %@", self.webUrl.absoluteString, request.URL.absoluteString);
+//    NSLog(@"init url: %@\n current url: %@", self.webUrl.absoluteString, request.URL.absoluteString);
     if ([webView canGoBack]) {
         [self createNavLeft_Second];
     }else{
@@ -410,17 +429,19 @@
 
 #pragma mark - cookie设置（也可以提前设定好，http请求就可以。仅限webview。wkwebview比较坑）
 - (void)setCookie{
+//http://192.168.60.104:8020/iOSCookieTest/test.html
     
+//    NSURL * cookieHost = [NSURL URLWithString:@"http://192.168.60.104:8020/iOSCookieTest/index.html"];
     NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:3600*24*30*12];//当前点后，保存一年左右
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
-    [cookieProperties setObject:@"abc" forKey:NSHTTPCookieName];
-    [cookieProperties setObject:@"test cookie" forKey:NSHTTPCookieValue];
-    [cookieProperties setObject:@"" forKey:NSHTTPCookieDomain];
-    [cookieProperties setObject:@"CMBNSHTTPCookieOriginURL" forKey:NSHTTPCookieOriginURL];
-    [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
-    [cookieProperties setObject:expiresDate forKey:NSHTTPCookieExpires];
-    [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieVersion];
-    [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieSecure];
+    [cookieProperties setObject:@"xubin" forKey:NSHTTPCookieName];
+    [cookieProperties setObject:@"111111Give me the cookie" forKey:NSHTTPCookieValue];
+    [cookieProperties setObject:[self.webUrl host] forKey:NSHTTPCookieDomain];
+//    [cookieProperties setObject:@"CMBNSHTTPCookieOriginURL" forKey:NSHTTPCookieOriginURL];
+    [cookieProperties setObject:@"" forKey:NSHTTPCookiePath];
+//    [cookieProperties setObject:expiresDate forKey:NSHTTPCookieExpires];
+//    [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieVersion];
+//    [cookieProperties setObject:@"CMBNSHTTPCookieVersion" forKey:NSHTTPCookieSecure];
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
 
@@ -497,12 +518,12 @@
 - (void)showCookie{
 
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray* cookiesURL = [cookieJar cookiesForURL:self.webUrl];
-    if (cookiesURL.count) {
-        NSLog(@"cookiesURL%@",cookiesURL);
-    }
+//    NSArray* cookiesURL = [cookieJar cookiesForURL:self.webUrl];
+//    if (cookiesURL.count) {
+//        NSLog(@"cookiesURL%@",cookiesURL);
+//    }
     for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-        if ([cookie.name isEqualToString:@"abc"]) {
+        if ([cookie.name isEqualToString:@"xubin"]) {
             NSLog(@"%@\n%@",cookie.value,cookie.domain);
             break;
         }

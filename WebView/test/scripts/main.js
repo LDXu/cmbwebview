@@ -3,11 +3,10 @@ require.config({
     }
 )
 
-cookieValue = $.cookie("test");
-alert(cookieValue);
 var dt = new Date();
 dt.setSeconds(dt.getSeconds() + 60);
-var allcookies = document.referrer;
+var allcookies = document.cookie;
+alert(1);
 alert(allcookies);
 document.cookie = "";
 var cookiesEnabled = document.cookie.indexOf("cookietest=") != -1;
