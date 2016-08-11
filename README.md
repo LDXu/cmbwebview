@@ -34,3 +34,6 @@ https://github.com/HAPENLY/UIWebviewWithCookie
 1. iOS在`UIWebView`中获取的cookie的方法：`NSHTTPCookieStorage * nCookies = [NSHTTPCookieStorage sharedHTTPCookieStorage]`
 2. 再具体获取某个域的饼干：`NSArray* cookiesURL = [nCookies cookiesForURL：[NSURL URLWithString：@“你的URL”]];（本地是不是不行？）`
 3. 通过`[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie]`方法将 `cookies`来保存起来，但是这样虽然可以保存`cookies`但是你应用退出之后还是会丢失(其实是cookies过期的问题)，做好的方法是把`cookies`放到`NSUserDefaults`保存起来:
+
+＃4. 
+http://www.jianshu.com/p/072bbc1e4c33
