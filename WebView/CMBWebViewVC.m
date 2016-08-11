@@ -117,10 +117,9 @@
     [self createNavRight_First];
     [self createNavLeft_First];
     [self setCookie];
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage]setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+   
     if (!isFile) {
-        
-        [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
+            [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
     }else{
         NSString *htmlString = [NSString stringWithContentsOfFile:_htmlPath
                                                          encoding:NSUTF8StringEncoding error:nil];

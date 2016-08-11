@@ -21,10 +21,10 @@
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 //     协议管理了所有的http。接口请求如何过滤？
 //    [NSURLProtocol registerClass:[MyURLProtocol class]];
-//    MyURLCache *URLCache = [[MyURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-//                                                         diskCapacity:20 * 1024 * 1024
-//                                                             diskPath:nil];
-//    [NSURLCache setSharedURLCache:URLCache];
+    MyURLCache *URLCache = [[MyURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                         diskCapacity:20 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
     
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
