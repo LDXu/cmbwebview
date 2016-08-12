@@ -235,6 +235,28 @@
 //    [self getWebViewTitle];
 }
 
++(NSString *)readCurrentCookie:(NSURL*)url{
+    NSHTTPCookieStorage*cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSMutableString *cookieString = [[NSMutableString alloc] init];
+    NSMutableString *domain =[[NSMutableString alloc] initWithString:url.absoluteString];
+    NSArray *domainArr = [domain componentsSeparatedByString:@":"];
+    NSMutableString *domainString = [NSMutableString stringWithString:domainArr[1]];
+    [domainString deleteCharactersInRange:NSMakeRange(0, 2)];
+    NSHTTPCookie *currentCookie= [[NSHTTPCookie alloc] init];
+    for (NSHTTPCookie*cookie in [cookieJar cookies]) {
+        NSLog(@"cookie:%@", cookie);
+        if ([cookie.domain isEqualToString:domainString]) {
+            currentCookie = cookie;
+            //多个字段之间用“；”隔开
+            [cookieString appendFormat:@"%@=%@;",cookie.name,cookie.value];
+        }
+        
+    }
+    //删除最后一个“；”
+    [cookieString deleteCharactersInRange:NSMakeRange(cookieString.length - 1, 1)];
+    return cookieString;
+}
+
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -268,19 +290,48 @@
     if (_Local) {
         if ([self.webUrl.absoluteString containsString:@"http://192.168.60.104:8020"]) {
             
+#warning 参考wkwebview cookie方式
+            NSHTTPCookieStorage*cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+            NSMutableString *cookieString = [[NSMutableString alloc] init];
+            NSMutableString *domain = [[NSMutableString alloc] initWithString:self.webUrl.absoluteString];
+            NSArray *domainArr = [domain componentsSeparatedByString:@":"];
+            NSMutableString *domainString = [NSMutableString stringWithString:domainArr[1]];
+            [domainString deleteCharactersInRange:NSMakeRange(0, 2)];
+            NSHTTPCookie *currentCookie= [[NSHTTPCookie alloc] init];
             self.webUrl = [self CMBWebview_html_forURLForResource:@"test/test"];
-//            self.webUrl = [NSURL URLWithString:@"http://192.168.60.104:8020/iOSCookieTest/test.html"];
             NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:self.webUrl];
-            NSArray * cookies = [[NSHTTPCookieStorage  sharedHTTPCookieStorage] cookies];
-            NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-            [request setHTTPMethod:@"POST"];
-            [request setHTTPShouldHandleCookies:YES];
-            [request setAllHTTPHeaderFields:headers];
+            for (NSHTTPCookie*cookie in [cookieJar cookies]) {
+                NSLog(@"cookie:%@", cookie);
+                if ([cookie.domain isEqualToString:domainString]) {
+                    currentCookie = cookie;
+                    //多个字段之间用“；”隔开
+                    [cookieString appendFormat:@"%@=%@;",cookie.name,cookie.value];
+                }
+                
+            }
+            //删除最后一个“；”
+            [cookieString deleteCharactersInRange:NSMakeRange(cookieString.length - 1, 1)];
+            [request setValue:cookieString forHTTPHeaderField:@"Cookie"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.CMBWebView loadRequest:request];
             });
-            //        NSLog(@"FileWebUrl%@",self.webUrl.absoluteString);
-            //        [self.CMBWebView loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
+            
+ #warning 参考webview cookie方式
+//            self.webUrl = [self CMBWebview_html_forURLForResource:@"test/test"];
+//            //            self.webUrl = [NSURL URLWithString:@"http://192.168.60.104:8020/iOSCookieTest/test.html"];
+//            NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:self.webUrl];
+//                        NSArray * cookies = [[NSHTTPCookieStorage  sharedHTTPCookieStorage] cookies];
+//                        NSDictionary * headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+//                        [request setHTTPMethod:@"POST"];
+//                        [request setHTTPShouldHandleCookies:YES];
+//                        [request setAllHTTPHeaderFields:headers];
+//                    NSLog(@"FileWebUrl%@",self.webUrl.absoluteString);
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.CMBWebView loadRequest:request];
+//            });
+            
+            
+
             return NO;
         }
     }
